@@ -2,7 +2,8 @@
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const sequelize = require("./config/database");
-const userRoutes = require("./routes/userRoutes");
+const userRoutes = require("./routes/userRoutes"); // Existing user routes
+const authRoutes = require("./routes/auth"); // Add authentication routes
 
 require("dotenv").config();
 
@@ -14,12 +15,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
-app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes); // New authentication routes
+app.use("/api/users", userRoutes); // Existing user management routes
 
 // Sync Database & Start Server
 sequelize.sync({ alter: true })
   .then(() => console.log("📦 Database synced!"))
   .catch(err => console.error("❌ Sync error:", err));
 
-  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
