@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const sequelize = require("./config/database");
 const userRoutes = require("./routes/userRoutes"); // Existing user routes
 const authRoutes = require("./routes/auth"); // Add authentication routes
+const bookingRoutes = require("./routes/booking");
 
 require("dotenv").config();
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 // Routes
 app.use("/api/auth", authRoutes); // New authentication routes
 app.use("/api/users", userRoutes); // Existing user management routes
+app.use("/api/booking", bookingRoutes);
 
 // Sync Database & Start Server
 sequelize.sync({ alter: true })
